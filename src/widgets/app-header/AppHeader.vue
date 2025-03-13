@@ -6,6 +6,7 @@ import { logout } from '@/composables/logout'
 import signInIcon from '@/shared/assets/svg/sign-in-icon.vue'
 import logoIcon from '@/shared/assets/svg/logo-icon.vue'
 import userIcon from '@/shared/assets/svg/user-icon.vue'
+import logoIconMobile from '@/shared/assets/svg/logo-icon-mobile.vue'
 
 const noteStore = useNoteStore()
 
@@ -33,7 +34,8 @@ const logoutUser = () => {
 
 <template>
   <header class="app-header">
-    <logoIcon alt="Логотип приложения" />
+    <logoIcon alt="Логотип приложения" class="app-header__logo" />
+    <logoIconMobile alt="Логотип приложения" class="app-header__logo-mobile" />
 
     <nav class="app-header__nav">
       <ButtonForm
@@ -77,6 +79,26 @@ const logoutUser = () => {
   align-items: center;
   padding: 40px 0;
 }
+@media screen and (max-width: 1366px) {
+  .app-header {
+    padding: 20px 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .app-header__logo {
+    display: none;
+  }
+}
+.app-header__logo-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .app-header__logo-mobile {
+    display: block;
+  }
+}
 
 .app-header__nav {
   display: flex;
@@ -92,10 +114,20 @@ const logoutUser = () => {
 }
 
 .user-email__text {
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 18px;
   line-height: 28px;
   font-weight: 400;
   color: #ffffff;
+}
+
+@media screen and (max-width: 500px) {
+  .user-email__text {
+    width: 100px;
+  }
 }
 
 .user-email__icon {

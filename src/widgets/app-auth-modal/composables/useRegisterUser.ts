@@ -20,9 +20,10 @@ export const useRegisterUser = async (authForm: IRegisterForm) => {
     const data = await response.json()
     if (data.accessToken) {
       localStorage.setItem('token', data.accessToken)
-      await useSignIn()
+      return await useSignIn()
     }
   } catch (error) {
+    console.error('Registration failed:', error)
     return error
   }
 }

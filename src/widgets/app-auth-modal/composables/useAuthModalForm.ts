@@ -2,14 +2,16 @@ import { computed, reactive, ref } from 'vue'
 import type { IRegisterForm, IAuthForm } from '@/shared/types'
 import { useNoteStore } from '@/stores'
 import { useRegisterUser } from './useRegisterUser'
-import { useRegisterValidation } from './useRegisterValidation'
+import { useValidation } from './useValidation'
 import { getToken } from './getToken'
 
 export function useAuthModalForm() {
   const isRegistrationMode = ref(false)
   const noteStore = useNoteStore()
 
-  const modalTitle = computed(() => (isRegistrationMode.value ? 'Регистрация' : 'Вход'))
+  const modalTitle = computed(() =>
+    isRegistrationMode.value ? 'Регистрация' : 'Вход в ваш аккаунт',
+  )
   const authHintText = computed(() =>
     isRegistrationMode.value ? 'Есть аккаунт?' : 'У вас нет аккаунта?',
   )
@@ -33,18 +35,36 @@ export function useAuthModalForm() {
     isRegistrationMode.value = !isRegistrationMode.value
   }
 
-  const { validate: validateReg, errors: errorsReg } = useRegisterValidation(registerForm)
+  const resetForm = () => {
+    authForm.email = ''
+    authForm.password = ''
+    registerForm.email = ''
+    registerForm.password = ''
+    registerForm.confirm_password = ''
+  }
+
+  const { validate: validateReg, errors: errorsReg } = useValidation(registerForm)
+  const { validate: validateAuth, errors: errorsAuth } = useValidation(authForm)
 
   const sendForm = async () => {
     if (isRegistrationMode.value) {
       if (!validateReg()) return
-      await useRegisterUser(registerForm)
-    } else if (!isRegistrationMode.value) {
-      if (!authForm.email || !authForm.password) {
-        noteStore.error = 'Email и пароль обязательны'
+      const error = await useRegisterUser(registerForm)
+
+      if (error) {
+        noteStore.error = error.message
       } else {
-        noteStore.error = null
-        await getToken(authForm)
+        resetForm()
+      }
+    } else if (!isRegistrationMode.value) {
+      if (!validateAuth()) return
+      noteStore.error = null
+      const error = await getToken(authForm)
+
+      if (error) {
+        noteStore.error = error.message.toString()
+      } else {
+        resetForm()
       }
     }
   }
@@ -57,6 +77,7 @@ export function useAuthModalForm() {
     toggleModeText,
     toggleAuthMode,
     errorsReg,
+    errorsAuth,
     sendForm,
     noteStore,
     authForm,

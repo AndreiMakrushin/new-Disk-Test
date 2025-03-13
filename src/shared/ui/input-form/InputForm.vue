@@ -16,7 +16,7 @@ const showPassword = ref(false)
       <input
         v-model="model"
         :maxlength="count"
-        :class="{ 'disc--input': !showPassword }"
+        :class="{ 'disc--input': !showPassword && type === 'password' }"
         :placeholder="placeholder"
       />
       <div class="input__form-icon" v-if="type === 'password'">

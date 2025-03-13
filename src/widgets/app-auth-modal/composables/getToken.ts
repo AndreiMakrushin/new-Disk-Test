@@ -1,10 +1,8 @@
 import type { IAuthForm } from '@/shared/types'
 import { useSignIn } from '@/composables/useSignIn'
-import { useNoteStore } from '@/stores'
 import { API_URL } from '@/api/api_url'
 
 export const getToken = async (authForm: IAuthForm) => {
-  const noteStore = useNoteStore()
   try {
     const response = await fetch(`${API_URL}auth`, {
       method: 'POST',
@@ -15,7 +13,8 @@ export const getToken = async (authForm: IAuthForm) => {
     })
 
     if (!response.ok) {
-      noteStore.error = 'Пользователь с таким логином не найден'
+      const errorData = await response.json()
+      return errorData
     }
 
     const token = await response.json()

@@ -1,6 +1,3 @@
-<script setup lang="ts">
-import homePageTitleIcon from '@/shared/assets/svg/home-page-title-icon.vue'
-</script>
 <template>
   <section class="homepage">
     <div class="homepage__container">
@@ -10,7 +7,11 @@ import homePageTitleIcon from '@/shared/assets/svg/home-page-title-icon.vue'
       </div>
 
       <div class="homepage__image-wrapper">
-        <homePageTitleIcon alt="Иллюстрация заметок" class="homepage__image" />
+        <img
+          src="@/shared/assets/image/home-image.png"
+          alt="Иллюстрация заметок"
+          class="homepage__image"
+        />
       </div>
     </div>
   </section>
@@ -18,19 +19,6 @@ import homePageTitleIcon from '@/shared/assets/svg/home-page-title-icon.vue'
 
 <style scoped>
 .homepage {
-  --homepage-gap: 40px;
-  --homepage-title-font-size: 104px;
-  --homepage-title-font-width: 488px;
-  --homepage-title-line-height: 104px;
-  --homepage-description-font-size: 32px;
-  --homepage-description-line-height: 48px;
-  --homepage-description-width: 394px;
-  --homepage-text-color: #fff;
-  --homepage-description-color: #9da5af;
-  --homepage-cta-button-bg: #b1c909;
-  --homepage-cta-button-hover-bg: #97ab0d;
-  --homepage-cta-button-active-bg: #819400;
-  --homepage-cta-button-text-color: #fff;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -41,30 +29,50 @@ import homePageTitleIcon from '@/shared/assets/svg/home-page-title-icon.vue'
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--homepage-gap);
+  height: fit-content;
+  gap: 40px;
   max-width: 100%;
+}
+
+@media screen and (max-width: 1366px) {
+  .homepage__container {
+    padding: 40px 0px 0 0px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .homepage__container {
+    padding: 20px 0px 0 0px;
+  }
 }
 
 .homepage__content {
   display: flex;
   flex-direction: column;
-  gap: var(--homepage-gap);
+  gap: 40px;
 }
 
 .homepage__title {
-  width: var(--homepage-title-font-width);
-  font-size: var(--homepage-title-font-size);
+  font-size: 104px;
   font-weight: 900;
-  line-height: var(--homepage-title-line-height);
-  color: var(--homepage-text-color);
+  line-height: 104px;
+  color: #fff;
   margin: 0;
 }
 
+@media screen and (max-width: 500px) {
+  .homepage__title {
+    white-space: normal;
+    font-size: 60px;
+    line-height: 64px;
+    display: block;
+  }
+}
+
 .homepage__description {
-  font-size: var(--homepage-description-font-size);
-  line-height: var(--homepage-description-line-height);
-  color: var(--homepage-description-color);
-  width: var(--homepage-description-width);
+  font-size: 32px;
+  line-height: 48px;
+  color: #9da5af;
+  width: 394px;
   margin: 0;
 }
 
@@ -72,8 +80,8 @@ import homePageTitleIcon from '@/shared/assets/svg/home-page-title-icon.vue'
   padding: 16px 32px;
   font-size: 18px;
   font-weight: 700;
-  color: var(--homepage-cta-button-text-color);
-  background-color: var(--homepage-cta-button-bg);
+  color: #fff;
+  background-color: #b1c909;
   border: none;
   border-radius: 32px;
   cursor: pointer;
@@ -81,64 +89,57 @@ import homePageTitleIcon from '@/shared/assets/svg/home-page-title-icon.vue'
 }
 
 .homepage__cta-button:hover {
-  background-color: var(--homepage-cta-button-hover-bg);
+  background-color: #97ab0d;
 }
 
 .homepage__cta-button:active {
-  background-color: var(--homepage-cta-button-active-bg);
+  background-color: #819400;
 }
 
 .homepage__image-wrapper {
   display: flex;
+  max-width: 900px;
 }
 
 .homepage__image {
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 @media (max-width: 1200px) {
-  :root {
-    --homepage-padding: 80px;
-    --homepage-title-font-size: 80px;
-    --homepage-title-line-height: 80px;
-    --homepage-description-font-size: 24px;
-    --homepage-description-line-height: 36px;
-    --homepage-description-width: 300px;
+  .homepage__title {
+    font-size: 80px;
+    line-height: 80px;
+  }
+
+  .homepage__description {
+    font-size: 24px;
+    line-height: 36px;
+    width: 300px;
   }
 }
 
 @media (max-width: 768px) {
-  :root {
-    --homepage-padding: 40px;
-    --homepage-title-font-size: 48px;
-    --homepage-title-line-height: 48px;
-    --homepage-description-font-size: 18px;
-    --homepage-description-line-height: 24px;
-    --homepage-description-width: 100%;
-  }
-
   .homepage__container {
     flex-direction: column;
     text-align: center;
   }
-
-  .homepage__image-wrapper {
-    max-width: 80%; /* Уменьшаем ширину изображения на мобильных устройствах */
+  .homepage__content {
+    gap: 20px;
   }
-}
-
-@media (max-width: 480px) {
-  :root {
-    --homepage-padding: 20px;
-    --homepage-title-font-size: 36px;
-    --homepage-title-line-height: 36px;
-    --homepage-description-font-size: 16px;
-    --homepage-description-line-height: 20px;
+  .homepage__title {
+    font-size: 60px;
+    line-height: 60px;
   }
 
+  .homepage__description {
+    font-size: 24px;
+    line-height: 36px;
+    width: 100%;
+  }
+
   .homepage__image-wrapper {
-    max-width: 100%; /* На очень маленьких экранах занимает всю ширину */
+    max-width: 80%;
   }
 }
 </style>

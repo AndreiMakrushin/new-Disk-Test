@@ -9,6 +9,22 @@ body {
   padding: 0px 160px;
 }
 
+@media screen and (max-width: 1366px) {
+  body {
+    padding: 0px 80px;
+  }
+}
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0px 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  body {
+    padding: 0px 20px;
+  }
+}
+
 @media (max-width: 1920px) and (min-width: 1150px) {
   body {
     font-size: calc(0.39866369710467703rem + 0.5010514571614699vw);

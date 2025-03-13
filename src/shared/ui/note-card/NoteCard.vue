@@ -6,6 +6,7 @@ defineProps<INoteCardProps>()
 
 <template>
   <article class="note-card">
+    <div class="note-card__corner"></div>
     <header class="note-card__header">
       <h4 class="note-card__title">{{ title }}</h4>
     </header>
@@ -18,13 +19,24 @@ defineProps<INoteCardProps>()
 
 <style scoped>
 .note-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: #b1c909;
   border-radius: 12px 12px 0px 12px;
   box-shadow: 0px 15px 15px -10px #00000066;
+  clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
 }
-
+.note-card__corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: #a5bb0c;
+  border-radius: 0 0 0 12px;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
 .note-card__header {
   padding: 20px 28px;
   border-bottom: 1px solid #a5bb0c;

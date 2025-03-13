@@ -36,7 +36,6 @@ defineProps<IModalLayoutProps>()
   --auth-modal-link-color: #b1c909;
   --auth-modal-hint-text-color: #9da5af;
   --auth-modal-border-radius: 40px;
-  --auth-modal-padding: 80px;
   --auth-modal-gap: 40px;
   position: fixed;
   top: 0;
@@ -70,7 +69,7 @@ defineProps<IModalLayoutProps>()
   max-height: calc(100vh-60px);
   background-color: var(--auth-modal-bg);
   border-radius: var(--auth-modal-border-radius);
-  padding: var(--auth-modal-padding);
+  padding: 80px;
   display: flex;
   flex-direction: column;
   gap: var(--auth-modal-gap);
@@ -79,5 +78,27 @@ defineProps<IModalLayoutProps>()
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+@media screen and (max-width: 1366px) {
+  .auth-modal__content {
+    padding: 56px;
+    width: 594px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .auth-modal__content {
+    width: 88%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .auth-modal__content {
+    padding: 50px 16px;
+    width: 100%;
+    height: 100%;
+    gap: 28px;
+  }
 }
 </style>

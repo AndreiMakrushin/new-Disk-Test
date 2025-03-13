@@ -70,10 +70,6 @@ const addNote = async (noteForm: INoteForm) => {
 </template>
 
 <style scoped>
-.modal-header {
-  margin-bottom: 24px;
-}
-
 .modal-title {
   font-weight: 600;
   font-size: 48px;

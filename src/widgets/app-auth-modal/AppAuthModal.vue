@@ -12,6 +12,7 @@ const {
   toggleModeText,
   toggleAuthMode,
   errorsReg,
+  errorsAuth,
   sendForm,
   registerForm,
   authForm,
@@ -55,11 +56,13 @@ const {
         v-model:input="authForm.email"
         label="Email"
         type="email"
+        :errors="errorsAuth.email"
         placeholder="Введите email"
       />
       <InputForm
         v-model:input="authForm.password"
         label="Пароль"
+        :errors="errorsAuth.password"
         type="password"
         placeholder="Введите пароль"
       />
@@ -73,7 +76,11 @@ const {
         </button>
       </div>
 
-      <ButtonForm @click.prevent="sendForm" :title="submitButtonText" />
+      <ButtonForm
+        class="auth-modal__footer-button"
+        @click.prevent="sendForm"
+        :title="submitButtonText"
+      />
     </div>
   </ModalLayout>
 </template>
@@ -85,6 +92,18 @@ const {
   font-weight: 600;
   color: var(--auth-modal-text-color);
 }
+@media screen and (max-width: 1366px) {
+  .auth-modal__title {
+    padding-right: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .auth-modal__title {
+    font-size: 32px;
+    line-height: 36px;
+  }
+}
 
 .auth-modal__form {
   display: flex;
@@ -94,13 +113,27 @@ const {
 
 .auth-modal__footer {
   display: flex;
+  gap: 16px;
   justify-content: space-between;
   align-items: center;
 }
 
 .auth-modal__footer-hint {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+
+@media screen and (max-width: 500px) {
+  .auth-modal__footer {
+    flex-direction: column-reverse;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .auth-modal__footer-button {
+    width: 100%;
+  }
 }
 
 .auth-modal__footer-hint-text {

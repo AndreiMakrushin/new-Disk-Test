@@ -1,8 +1,8 @@
-import type { IRegisterForm } from '@/shared/types'
 import { ref } from 'vue'
+import type { TAuthMode } from '@/shared/types'
 
-export function useRegisterValidation(form: IRegisterForm) {
-  const errors = ref<Partial<IRegisterForm>>({})
+export function useValidation<T extends TAuthMode>(form: T) {
+  const errors = ref<Partial<T>>({})
 
   const validate = () => {
     errors.value = {}
@@ -19,7 +19,7 @@ export function useRegisterValidation(form: IRegisterForm) {
       errors.value.password = 'Пароль должен быть не менее 6 символов'
     }
 
-    if (form.password !== form.confirm_password) {
+    if ('confirm_password' in form && form.password !== form.confirm_password) {
       errors.value.confirm_password = 'Пароли не совпадают'
     }
 

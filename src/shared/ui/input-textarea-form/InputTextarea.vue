@@ -49,6 +49,12 @@ const model = defineModel<string>('input')
   min-height: 244px;
 }
 
+@media screen and (max-width: 1366px) {
+  .input-textarea__field {
+    min-height: 168px;
+  }
+}
+
 .input-textarea__field:hover {
   box-shadow: inset 0 0 0 2px #b1c909;
 }

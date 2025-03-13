@@ -62,6 +62,13 @@ const noteStore = useNoteStore()
   gap: 40px;
 }
 
+@media screen and (max-width: 768px) {
+  .note-card-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .note-card {
   display: flex;
   flex-direction: column;
