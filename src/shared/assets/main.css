@@ -1,0 +1,16 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+body {
+  background-color: #0a1f38;
+  padding: 0px 160px;
+}
+
+@media (max-width: 1920px) and (min-width: 1150px) {
+  body {
+    font-size: calc(0.39866369710467703rem + 0.5010514571614699vw);
+  }
+}
