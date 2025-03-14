@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuthModalForm } from './composables/useAuthModalForm'
-import ModalLayout from '@/shared/ui/modal-layout'
+import ModalLayout from '@/shared/layouts/modal-layout'
 import ButtonForm from '@/shared/ui/button-form'
 import InputForm from '@/shared/ui/input-form'
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { IInputTextareaProps } from './types'
+import type { IInputTextareaFormProps } from './types'
 
-defineProps<IInputTextareaProps>()
+defineProps<IInputTextareaFormProps>()
 
 const model = defineModel<string>('input')
 </script>

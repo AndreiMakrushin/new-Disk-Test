@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ButtonForm from '../button-form'
+import ButtonForm from '@/shared/ui/button-form'
 import closeIcon from '@/shared/assets/svg/close-icon.vue'
 import type { IModalLayoutProps } from './types'
 const emit = defineEmits<{

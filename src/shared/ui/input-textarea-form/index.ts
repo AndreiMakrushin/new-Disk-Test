@@ -1,3 +1,3 @@
-import InputTextarea from './InputTextarea'
+import InputTextareaForm from './InputTextareaForm.vue'
 
-export default InputTextarea
+export default InputTextareaForm

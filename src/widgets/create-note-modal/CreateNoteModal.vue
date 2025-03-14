@@ -2,9 +2,9 @@
 import { reactive } from 'vue'
 import { getNotes } from '@/composables/getNotes'
 import type { INoteForm } from './types'
-import ModalLayout from '@/shared/ui/modal-layout'
+import ModalLayout from '@/shared/layouts/modal-layout'
 import InputForm from '@/shared/ui/input-form/InputForm.vue'
-import InputTextarea from '@/shared/ui/input-textarea-form/InputTextarea.vue'
+import InputTextareaForm from '@/shared/ui/input-textarea-form/InputTextareaForm.vue'
 import ButtonForm from '@/shared/ui/button-form'
 import { useNoteStore } from '@/stores'
 import { createNote } from './composables/createNote'
@@ -59,7 +59,7 @@ const addNote = async (noteForm: INoteForm) => {
         type="text"
         placeholder="Введите название"
       />
-      <InputTextarea
+      <InputTextareaForm
         v-model:input="noteForm.content"
         :count="500"
         placeholder="Введите текст"
