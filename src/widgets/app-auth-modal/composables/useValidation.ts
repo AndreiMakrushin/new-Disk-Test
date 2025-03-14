@@ -16,7 +16,7 @@ export function useValidation<T extends TAuthMode>(form: T) {
     if (!form.password) {
       errors.value.password = 'Пароль обязателен'
     } else if (form.password.length < 6) {
-      errors.value.password = 'Пароль должен быть не менее 6 символов'
+      errors.value.password = 'Минимальная длина пароля 6 символов'
     }
 
     if ('confirm_password' in form && form.password !== form.confirm_password) {

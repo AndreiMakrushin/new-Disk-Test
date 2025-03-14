@@ -102,6 +102,7 @@ const {
   .auth-modal__title {
     font-size: 32px;
     line-height: 36px;
+    padding-right: 80px;
   }
 }
 

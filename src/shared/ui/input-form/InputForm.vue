@@ -128,7 +128,7 @@ const showPassword = ref(false)
   color: #9da5af;
 }
 .input__form-error {
-  position: absolute;
+  position: relative;
   width: fit-content;
   color: red;
 }
