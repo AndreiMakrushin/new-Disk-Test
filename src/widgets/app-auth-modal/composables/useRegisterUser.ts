@@ -13,18 +13,9 @@ export const useRegisterUser = async (authForm: IRegisterForm) => {
 
     if (!response.ok) {
       const errorData = await response.json()
-      console.log('Registration failed:', errorData)
-      return { message: errorData.message || 'Ошибка регистрации' }
-    }
-
-    const data = await response.json()
-    if (data) {
-      localStorage.setItem('token', data.accessToken)
-      console.log('Registration successful:', data)
-      return data
+      return errorData.message
     }
   } catch (error) {
-    console.error('Registration failed:', error)
-    return { message: 'Ошибка сети' }
+    return error
   }
 }
