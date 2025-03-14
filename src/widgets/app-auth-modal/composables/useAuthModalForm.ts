@@ -56,7 +56,7 @@ export function useAuthModalForm() {
   const handleRegistration = async () => {
     if (!validateReg()) return
     const error = await useRegisterUser(registerForm)
-    if (error.message) {
+    if (error) {
       error.value = error.message
     } else {
       await clearFormAndSignInToPage()
@@ -67,7 +67,7 @@ export function useAuthModalForm() {
     if (!validateAuth()) return
     error.value = null
     const errorToken = await getToken(authForm)
-    if (errorToken.message) {
+    if (errorToken) {
       error.value = errorToken.message
     } else {
       await clearFormAndSignInToPage()
