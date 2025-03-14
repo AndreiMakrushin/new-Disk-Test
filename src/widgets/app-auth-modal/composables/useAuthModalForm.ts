@@ -49,8 +49,8 @@ export function useAuthModalForm() {
 
   const clearFormAndSignInToPage = async () => {
     resetForm()
-    await noteStore.goNotePage()
     noteStore.closeAuthModal()
+    await noteStore.goNotePage()
   }
 
   const handleRegistration = async () => {
