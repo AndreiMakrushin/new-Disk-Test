@@ -1,9 +1,6 @@
 import { API_URL } from '@/api/api_url'
-import { useNoteStore } from '@/stores'
-import { getNotes } from '@/composables/getNotes'
 
 export const useSignIn = async () => {
-  const noteStore = useNoteStore()
   const token = localStorage.getItem('token')
 
   try {
@@ -24,11 +21,9 @@ export const useSignIn = async () => {
     const user = await response.json()
 
     if (user) {
-      noteStore.userData = user
-      await getNotes()
-      noteStore.closeAuthModal()
+      return user
     }
   } catch (error) {
-    return (noteStore.error = (error as string) + 'Ошибка авторизации')
+    return error
   }
 }

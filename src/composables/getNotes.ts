@@ -1,8 +1,4 @@
-import type { INoteList } from '@/shared/types'
-import { useNoteStore } from '@/stores'
-
 export const getNotes = async () => {
-  const noteStore = useNoteStore()
   try {
     const token = localStorage.getItem('token')
 
@@ -22,7 +18,7 @@ export const getNotes = async () => {
 
     const data = await response.json()
 
-    noteStore.noteList = data as INoteList[]
+    return data
   } catch (error) {
     console.error('Ошибка при получении заметок:', error)
     return []

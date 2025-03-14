@@ -26,9 +26,22 @@ export const useNoteStore = defineStore('note', () => {
     isAuthModal.value = false
   }
 
+  const getAllNotes = async () => {
+    const notes = await getNotes()
+    noteList.value = notes
+  }
+
+  const goNotePage = async () => {
+    const user = await useSignIn()
+
+    if (user) {
+      userData.value = user
+      await getAllNotes()
+    }
+  }
+
   onMounted(async () => {
-    await useSignIn()
-    await getNotes()
+    await goNotePage()
   })
   watchEffect(() => {
     if (!userData.value) {
@@ -45,6 +58,8 @@ export const useNoteStore = defineStore('note', () => {
     isAuthModal,
     openAddNoteModal,
     closeAddNoteModal,
+    getAllNotes,
+    goNotePage,
     noteList,
     userData,
     error,

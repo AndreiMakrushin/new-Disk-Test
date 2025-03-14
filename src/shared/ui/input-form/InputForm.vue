@@ -88,10 +88,11 @@ const showPassword = ref(false)
   -webkit-text-security: disc;
 }
 .input__form-icon {
+  cursor: pointer;
   position: absolute;
-  right: 24px; /* Оставляем отступ справа */
-  top: 50%; /* Смещаем иконку на 50% вниз относительно родителя */
-  transform: translateY(-50%); /* Смещаем иконку на 50% вверх относительно её собственной высоты */
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .input__form-label {
   font-weight: 400;

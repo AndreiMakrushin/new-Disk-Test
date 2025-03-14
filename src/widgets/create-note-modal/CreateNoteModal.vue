@@ -8,6 +8,7 @@ import InputTextarea from '@/shared/ui/input-textarea-form/InputTextarea.vue'
 import ButtonForm from '@/shared/ui/button-form'
 import { useNoteStore } from '@/stores'
 import { createNote } from './composables/createNote'
+import { useValidateForm } from './composables/useValidateNote'
 
 const noteStore = useNoteStore()
 
@@ -20,20 +21,22 @@ const clearForm = () => {
   noteForm.title = ''
   noteForm.content = ''
 }
-
 const addNote = async (noteForm: INoteForm) => {
-  if (!noteForm.title || !noteForm.content) {
-    noteStore.error = 'Заполните все поля'
-    return
-  } else {
-    noteStore.error = null
-    const result = await createNote(noteForm)
+  const validationError = useValidateForm(noteForm)
 
-    if (result) {
-      await getNotes()
-      noteStore.closeAddNoteModal()
-      clearForm()
-    }
+  if (validationError) {
+    noteStore.error = validationError
+    return
+  }
+
+  noteStore.error = null
+  const result = await createNote(noteForm)
+
+  if (result) {
+    const notes = await getNotes()
+    noteStore.noteList = notes
+    noteStore.closeAddNoteModal()
+    clearForm()
   }
 }
 </script>

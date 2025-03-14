@@ -46,26 +46,38 @@ export function useAuthModalForm() {
   const { validate: validateReg, errors: errorsReg } = useValidation(registerForm)
   const { validate: validateAuth, errors: errorsAuth } = useValidation(authForm)
 
+  const clearFormAndSignInToPage = async () => {
+    resetForm()
+    await noteStore.goNotePage()
+    noteStore.closeAuthModal()
+  }
+
+  const handleRegistration = async () => {
+    if (!validateReg()) return
+    const error = await useRegisterUser(registerForm)
+    if (error.message) {
+      noteStore.error = error.message
+    } else {
+      await clearFormAndSignInToPage()
+    }
+  }
+
+  const handleLogin = async () => {
+    if (!validateAuth()) return
+    noteStore.error = null
+    const error = await getToken(authForm)
+    if (error.message) {
+      noteStore.error = error.message
+    } else {
+      await clearFormAndSignInToPage()
+    }
+  }
+
   const sendForm = async () => {
     if (isRegistrationMode.value) {
-      if (!validateReg()) return
-      const error = await useRegisterUser(registerForm)
-
-      if (error) {
-        noteStore.error = error.message
-      } else {
-        resetForm()
-      }
-    } else if (!isRegistrationMode.value) {
-      if (!validateAuth()) return
-      noteStore.error = null
-      const error = await getToken(authForm)
-
-      if (error) {
-        noteStore.error = error.message.toString()
-      } else {
-        resetForm()
-      }
+      await handleRegistration()
+    } else {
+      await handleLogin()
     }
   }
 

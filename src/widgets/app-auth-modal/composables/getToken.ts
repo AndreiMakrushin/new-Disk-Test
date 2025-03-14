@@ -1,5 +1,4 @@
 import type { IAuthForm } from '@/shared/types'
-import { useSignIn } from '@/composables/useSignIn'
 import { API_URL } from '@/api/api_url'
 
 export const getToken = async (authForm: IAuthForm) => {
@@ -21,7 +20,7 @@ export const getToken = async (authForm: IAuthForm) => {
 
     if (token.accessToken) {
       localStorage.setItem('token', token.accessToken)
-      return await useSignIn()
+      return token
     }
   } catch (error) {
     throw error

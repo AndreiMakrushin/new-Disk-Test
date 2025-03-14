@@ -23,7 +23,7 @@ const handleMouseEnter = () => {
 const handleMouseLeave = () => {
   timeoutId = setTimeout(() => {
     isHovered.value = false
-  }, 500)
+  }, 600)
 }
 
 const logoutUser = () => {

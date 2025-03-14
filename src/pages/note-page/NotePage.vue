@@ -6,6 +6,11 @@ import NoteCard from '@/shared/ui/note-card/NoteCard.vue'
 import plusIcon from '@/shared/assets/svg/plus-icon.vue'
 
 const noteStore = useNoteStore()
+
+const noteDelete = async (id: number) => {
+  await deleteNote(id)
+  noteStore.getAllNotes()
+}
 </script>
 
 <template>
@@ -23,7 +28,7 @@ const noteStore = useNoteStore()
         v-for="note in noteStore.noteList"
         :key="note.id"
         v-bind="note"
-        @click="deleteNote(note.id)"
+        @click="noteDelete(note.id)"
       />
     </TransitionGroup>
   </section>

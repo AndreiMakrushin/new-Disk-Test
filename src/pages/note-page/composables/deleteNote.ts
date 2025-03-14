@@ -1,5 +1,3 @@
-import { getNotes } from '@/composables/getNotes'
-
 export const deleteNote = async (id: number) => {
   try {
     const token = localStorage.getItem('token')
@@ -11,7 +9,6 @@ export const deleteNote = async (id: number) => {
         Authorization: `Bearer ${token}`,
       },
     })
-    return await getNotes()
   } catch (error) {
     console.error('Ошибка удаления заметки:', error)
   }

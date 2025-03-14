@@ -1,5 +1,4 @@
 import type { IRegisterForm } from '@/shared/types'
-import { useSignIn } from '@/composables/useSignIn'
 import { API_URL } from '@/api/api_url'
 
 export const useRegisterUser = async (authForm: IRegisterForm) => {
@@ -20,7 +19,7 @@ export const useRegisterUser = async (authForm: IRegisterForm) => {
     const data = await response.json()
     if (data.accessToken) {
       localStorage.setItem('token', data.accessToken)
-      return await useSignIn()
+      return data
     }
   } catch (error) {
     console.error('Registration failed:', error)
