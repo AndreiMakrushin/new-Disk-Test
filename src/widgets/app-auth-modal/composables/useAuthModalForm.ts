@@ -60,6 +60,7 @@ export function useAuthModalForm() {
       error.value = errorMessage
       return
     } else {
+      error.value = null
       toggleAuthMode()
     }
   }
