@@ -66,7 +66,12 @@ const addNote = async (noteForm: INoteForm) => {
         label="Текст заметки"
       />
       <footer class="form-footer">
-        <ButtonForm @click.prevent="addNote(noteForm)" type="submit" title="Добавить" />
+        <ButtonForm
+          class="form-footer__button"
+          @click.prevent="addNote(noteForm)"
+          type="submit"
+          title="Добавить"
+        />
       </footer>
     </form>
   </ModalLayout>
@@ -91,5 +96,19 @@ const addNote = async (noteForm: INoteForm) => {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .modal-title {
+    font-size: 32px;
+    line-height: 36px;
+    padding-right: 80px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .form-footer__button {
+    width: 100%;
+  }
 }
 </style>
