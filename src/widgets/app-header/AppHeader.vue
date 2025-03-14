@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useNoteStore } from '@/stores'
 import ButtonForm from '@/shared/ui/button-form'
 import { logout } from '@/composables/logout'
@@ -30,6 +30,14 @@ const logoutUser = () => {
   logout()
   noteStore.userData = null
 }
+watch(
+  () => noteStore.userData,
+  (newUserData) => {
+    if (newUserData) {
+      isHovered.value = false
+    }
+  },
+)
 </script>
 
 <template>
