@@ -65,9 +65,8 @@ export function useAuthModalForm() {
 
   const handleLogin = async () => {
     if (!validateAuth()) return
-    error.value = null
     const errorToken = await getToken(authForm)
-    if (errorToken) {
+    if (errorToken.message) {
       error.value = errorToken.message
     } else {
       await clearFormAndSignInToPage()
