@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { getNotes } from '@/composables/getNotes'
 import type { INoteForm } from './types'
 import ModalLayout from '@/shared/layouts/modal-layout'
@@ -17,6 +17,8 @@ const noteForm: INoteForm = reactive({
   content: '',
 })
 
+const error = ref<string | null>(null)
+
 const clearForm = () => {
   noteForm.title = ''
   noteForm.content = ''
@@ -25,11 +27,11 @@ const addNote = async (noteForm: INoteForm) => {
   const validationError = useValidateForm(noteForm)
 
   if (validationError) {
-    noteStore.error = validationError
+    error.value = validationError
     return
   }
 
-  noteStore.error = null
+  error.value = null
   const result = await createNote(noteForm)
 
   if (result) {
@@ -39,14 +41,16 @@ const addNote = async (noteForm: INoteForm) => {
     clearForm()
   }
 }
+
+const closeModal = () => {
+  noteStore.closeAddNoteModal()
+  error.value = null
+  clearForm()
+}
 </script>
 
 <template>
-  <ModalLayout
-    :error="noteStore.error"
-    v-if="noteStore.isAddNoteModalVisible"
-    @close="noteStore.closeAddNoteModal"
-  >
+  <ModalLayout :error="error" v-if="noteStore.isAddNoteModalVisible" @close="closeModal">
     <header class="modal-header">
       <h2 class="modal-title">Добавление заметки</h2>
     </header>
@@ -86,7 +90,8 @@ const addNote = async (noteForm: INoteForm) => {
 }
 
 .note-form {
-  overflow-y: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
   display: flex;
   flex-direction: column;
   gap: 24px;

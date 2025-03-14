@@ -57,7 +57,7 @@ const noteDelete = async (id: number) => {
 
 .note-add-button {
   position: fixed;
-  z-index: 9999;
+  z-index: 20;
   bottom: 20px;
   right: 20px;
   box-shadow: 0px 15px 46px -10px #00000099;

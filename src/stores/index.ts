@@ -6,7 +6,6 @@ import type { INoteList } from '@/shared/types'
 import { useSignIn } from '@/composables/useSignIn'
 
 export const useNoteStore = defineStore('note', () => {
-  const error = ref<string | null>(null)
   const isAddNoteModalVisible = ref(false)
   const isAuthModal = ref(false)
   const userData = ref<{ id: number; email: string } | null>(null)
@@ -62,6 +61,5 @@ export const useNoteStore = defineStore('note', () => {
     goNotePage,
     noteList,
     userData,
-    error,
   }
 })

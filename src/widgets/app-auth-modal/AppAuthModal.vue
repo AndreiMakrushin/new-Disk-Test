@@ -16,71 +16,72 @@ const {
   sendForm,
   registerForm,
   authForm,
+  error,
+  closeAuthModal,
   noteStore,
 } = useAuthModalForm()
 </script>
 
 <template>
-  <ModalLayout
-    :error="noteStore.error"
-    v-if="noteStore.isAuthModal"
-    @close="noteStore.closeAuthModal"
+  <ModalLayout :error="error" v-if="noteStore.isAuthModal" @close="closeAuthModal"
     ><h2 class="auth-modal__title">{{ modalTitle }}</h2>
 
-    <form class="auth-modal__form" v-if="isRegistrationMode">
-      <InputForm
-        v-model:input="registerForm.email"
-        label="Email"
-        type="email"
-        :errors="errorsReg.email"
-        placeholder="Введите email"
-      />
-      <InputForm
-        :errors="errorsReg.password"
-        v-model:input="registerForm.password"
-        label="Пароль"
-        type="password"
-        placeholder="Введите пароль"
-      />
-      <InputForm
-        :errors="errorsReg.confirm_password"
-        v-model:input="registerForm.confirm_password"
-        label="Пароль ещё раз"
-        type="password"
-        placeholder="Введите пароль ещё раз"
-      />
-    </form>
+    <div class="auth-modal__content">
+      <form class="auth-modal__form" v-if="isRegistrationMode">
+        <InputForm
+          v-model:input="registerForm.email"
+          label="Email"
+          type="email"
+          :errors="errorsReg.email"
+          placeholder="Введите email"
+        />
+        <InputForm
+          :errors="errorsReg.password"
+          v-model:input="registerForm.password"
+          label="Пароль"
+          type="password"
+          placeholder="Введите пароль"
+        />
+        <InputForm
+          :errors="errorsReg.confirm_password"
+          v-model:input="registerForm.confirm_password"
+          label="Пароль ещё раз"
+          type="password"
+          placeholder="Введите пароль ещё раз"
+        />
+      </form>
 
-    <form class="auth-modal__form" v-else>
-      <InputForm
-        v-model:input="authForm.email"
-        label="Email"
-        type="email"
-        :errors="errorsAuth.email"
-        placeholder="Введите email"
-      />
-      <InputForm
-        v-model:input="authForm.password"
-        label="Пароль"
-        :errors="errorsAuth.password"
-        type="password"
-        placeholder="Введите пароль"
-      />
-    </form>
+      <form class="auth-modal__form" v-else>
+        <InputForm
+          v-model:input="authForm.email"
+          label="Email"
+          type="email"
+          :errors="errorsAuth.email"
+          placeholder="Введите email"
+        />
+        <InputForm
+          v-model:input="authForm.password"
+          label="Пароль"
+          :errors="errorsAuth.password"
+          type="password"
+          placeholder="Введите пароль"
+        />
+      </form>
 
-    <div class="auth-modal__footer">
-      <div class="auth-modal__footer-hint">
-        <span class="auth-modal__footer-hint-text">{{ authHintText }}</span>
-        <button class="auth-modal__footer-hint-link" @click="toggleAuthMode">
-          {{ toggleModeText }}
-        </button>
+      <div class="auth-modal__footer">
+        <div class="auth-modal__footer-hint">
+          <span class="auth-modal__footer-hint-text">{{ authHintText }}</span>
+          <button class="auth-modal__footer-hint-link" @click="toggleAuthMode">
+            {{ toggleModeText }}
+          </button>
+        </div>
+
+        <ButtonForm
+          class="auth-modal__footer-button"
+          @click.prevent="sendForm"
+          :title="submitButtonText"
+        />
       </div>
-
-      <ButtonForm
-        class="auth-modal__footer-button"
-        @click.prevent="sendForm"
-        :title="submitButtonText"
-      />
     </div>
   </ModalLayout>
 </template>
@@ -104,6 +105,12 @@ const {
     line-height: 36px;
     padding-right: 80px;
   }
+}
+.auth-modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: scroll;
 }
 
 .auth-modal__form {

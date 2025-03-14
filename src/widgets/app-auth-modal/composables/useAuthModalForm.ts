@@ -8,6 +8,7 @@ import { getToken } from './getToken'
 export function useAuthModalForm() {
   const isRegistrationMode = ref(false)
   const noteStore = useNoteStore()
+  const error = ref<string | null>(null)
 
   const modalTitle = computed(() =>
     isRegistrationMode.value ? 'Регистрация' : 'Вход в ваш аккаунт',
@@ -56,7 +57,7 @@ export function useAuthModalForm() {
     if (!validateReg()) return
     const error = await useRegisterUser(registerForm)
     if (error.message) {
-      noteStore.error = error.message
+      error.value = error.message
     } else {
       await clearFormAndSignInToPage()
     }
@@ -64,10 +65,10 @@ export function useAuthModalForm() {
 
   const handleLogin = async () => {
     if (!validateAuth()) return
-    noteStore.error = null
-    const error = await getToken(authForm)
-    if (error.message) {
-      noteStore.error = error.message
+    error.value = null
+    const errorToken = await getToken(authForm)
+    if (errorToken.message) {
+      error.value = errorToken.message
     } else {
       await clearFormAndSignInToPage()
     }
@@ -81,6 +82,12 @@ export function useAuthModalForm() {
     }
   }
 
+  const closeAuthModal = () => {
+    resetForm()
+    noteStore.closeAuthModal()
+    error.value = null
+  }
+
   return {
     isRegistrationMode,
     modalTitle,
@@ -88,10 +95,12 @@ export function useAuthModalForm() {
     submitButtonText,
     toggleModeText,
     toggleAuthMode,
+    closeAuthModal,
     errorsReg,
     errorsAuth,
     sendForm,
     noteStore,
+    error,
     authForm,
     registerForm,
   }
